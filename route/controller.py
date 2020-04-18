@@ -1,7 +1,7 @@
 from django.http import *
 
 # Create your views here.
-from core import handler_mapper
+from core import handler_mapper, filter
 from core.model import ErrorResult
 from core.type import Video
 
@@ -10,6 +10,9 @@ def fetch(vtype: Video, request):
     url = request.GET.get('url')
     if url is None:
         return HttpResponseBadRequest(ErrorResult.URL_NOT_PRESENT.get_data())
+
+    if filter.is_filter(request):
+        return HttpResponseForbidden(ErrorResult.TOO_MANY_OPERATE.get_data())
 
     service = handler_mapper.get_service(vtype)
     result = service.fetch(url)
@@ -22,6 +25,9 @@ def download(vtype: Video, request):
     url = request.GET.get('url')
     if url is None:
         return HttpResponseBadRequest(ErrorResult.URL_NOT_PRESENT.get_data())
+
+    if filter.is_filter(request):
+        return HttpResponseForbidden(ErrorResult.TOO_MANY_OPERATE.get_data())
 
     service = handler_mapper.get_service(vtype)
     response = service.download(url)
