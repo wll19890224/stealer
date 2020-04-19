@@ -31,6 +31,10 @@ def get_ip(request) -> str:
 
 
 def is_filter(request) -> bool:
+    token = request.GET.get('token')
+    if token is not None and token in config.permission_key:
+        return False
+
     ip = get_ip(request)
     collect_logger.info('request ip >>> {}'.format(ip))
     val = invoke_counter.get(ip)
