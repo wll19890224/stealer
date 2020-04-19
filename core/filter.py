@@ -2,6 +2,8 @@ import schedule
 import logging
 
 # 生成一个以当前文件名为名字的logger实例
+from core import config
+
 logger = logging.getLogger(__name__)
 collect_logger = logging.getLogger("collect")
 
@@ -35,7 +37,7 @@ def is_filter(request) -> bool:
     if val is None:
         invoke_counter[ip] = 1
         return False
-    if val > 3:
+    if val > config.time_per_day:
         return True
     invoke_counter[ip] = val + 1
     return False
