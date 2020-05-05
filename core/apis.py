@@ -9,9 +9,10 @@ from core.type import Video
 
 
 def index(request):
-    return render(request, 'index.html', {
-        'items': Video.items_json()
-    })
+    return redirect('http://www.didaho.com/#/watermark')
+    # return render(request, 'index.html', {
+    #     'items': Video.items_json()
+    # })
 
 
 def ip(request):
