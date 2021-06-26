@@ -36,7 +36,7 @@ class TiktokService(Service):
 
     @classmethod
     def make_url(cls, index) -> str:
-        return 'http://vm.tiktok.com/' + index
+        return 'https://vm.tiktok.com/' + index
 
     @classmethod
     def fetch(cls, url: str, mode=0) -> Result:
@@ -81,4 +81,4 @@ class TiktokService(Service):
 
 
 if __name__ == '__main__':
-    TiktokService.fetch('http://vm.tiktok.com/vwQ5YT')
+    TiktokService.fetch('https://vm.tiktok.com/vwQ5YT')
